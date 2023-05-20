@@ -11,6 +11,20 @@ export const Login = () => {
   const [password, setPassword] = useState("");
   const { signIn, signed } = useContext(AuthContext);
 
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const data = {
+      email,
+      password,
+    };
+    await signIn(data);
+  };
+
+  if (signed) {
+    return <Navigate to={"/home"} />;
+  } else {
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = {
@@ -23,7 +37,7 @@ export const Login = () => {
   if (!signed) {
     return (
       <LayoutComponents>
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleLogin} className="login-form">
           <span className="login-form-title"> Bem vindo </span>
 
           <span className="login-form-title">

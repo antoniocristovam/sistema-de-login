@@ -14,7 +14,7 @@ export class UserController {
     const userExists = await prisma.user.findUnique({ where: { email } });
 
     if (userExists) {
-      return res.json({ error: "User exists" });
+      return res.json({ error: "Usuário já existe" });
     }
 
     const hash_password = await hash(password, 8);
@@ -28,7 +28,13 @@ export class UserController {
         },
       });
 
-      return res.json({ user });
+      const createdUser = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      };
+
+      return res.json({ createdUser });
     } catch (error) {
       return res.json({ error });
     }
